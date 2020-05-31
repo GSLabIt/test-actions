@@ -44,7 +44,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
-        sudo apt-get install postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
+        sudo apt-get install postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
         python -m pip install --upgrade pip
 
     - name: Run tests - Odoo
