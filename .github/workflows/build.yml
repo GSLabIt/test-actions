@@ -46,9 +46,11 @@ jobs:
         sudo apt-get install postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
         python -m pip install --upgrade pip
 
-    - name: Run tests - Linting
+    - name: Run tests - Odoo
       env: 
-        LINT_CHECK: 1
+        LINT_CHECK: 0
+        TESTS: 1 
+        ODOO_REPO: "odoo/odoo"
         PGHOST: 127.0.0.1
         PGUSER: postgres
         PGPASSWORD: postgres
@@ -59,14 +61,12 @@ jobs:
         travis_run_tests
         travis_after_tests_success || true
 
-    - name: Run tests - Odoo
+    - name: Run tests - Linting
       env: 
-        LINT_CHECK: 1
-        TESTS: 1 
-        ODOO_REPO: "odoo/odoo"
+        LINT_CHECK: 0
         PGHOST: 127.0.0.1
         PGUSER: postgres
-        PGPASSWORD: ''
+        PGPASSWORD: postgres
       run: |
         git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
