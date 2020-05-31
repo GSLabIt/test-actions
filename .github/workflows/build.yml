@@ -11,15 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    env:
-      VERSION: 12.0 
-      TESTS: 0 
-      LINT_CHECK: 0 
-      MAKEPOT: 0
-
     services:
       postgres:
         image: postgres:10
@@ -53,16 +45,18 @@ jobs:
       env: 
         LINT_CHECK: 0
         TESTS: 1 
+        VERSION: 12.0 
         ODOO_REPO: "odoo/odoo"
         PGHOST: 127.0.0.1
         PGUSER: postgres
         PGPASSWORD: postgres
+
       run: |
         git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
-        sudo ${HOME}/maintainer-quality-tools/travis/travis_install_nightly
-        travis_run_tests
-        travis_after_tests_success || true
+        sudo -H ${HOME}/maintainer-quality-tools/travis/travis_install_nightly
+        ${HOME}/maintainer-quality-tools/travis/travis_run_tests
+        ${HOME}/maintainer-quality-tools/travis/travis_after_tests_success || true
 
     - name: Run tests - Linting
       env: 
