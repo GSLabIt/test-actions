@@ -63,7 +63,7 @@ jobs:
         ls ${HOME}/maintainer-quality-tools/travis
         echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         cd ${HOME}/maintainer-quality-tools/travis
-        sudo -H travis_install_nightly
+        sudo -H ./travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
         
