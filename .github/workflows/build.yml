@@ -41,7 +41,7 @@ jobs:
       run: |
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
         sudo apt-get install postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
-        curl -sL https://deb.nodesource.com/setup_10.x | bash -        
+        sudo curl -sL https://deb.nodesource.com/setup_10.x | bash -        
         python -m pip install --upgrade pip
 
     - name: Run tests - Linting
