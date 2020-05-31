@@ -83,7 +83,7 @@ jobs:
         npm config set unsafe-perm=true
         # git clone -b GSLabIt-pylint_odoo_requirement https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         ls ${HOME}/maintainer-quality-tools/travis
-        # export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
+        export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         # cd ${HOME}/maintainer-quality-tools/travis
         travis_install_nightly
