@@ -55,8 +55,8 @@ jobs:
         git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
         sudo -H ${HOME}/maintainer-quality-tools/travis/travis_install_nightly
-        ${HOME}/maintainer-quality-tools/travis/travis_run_tests
-        ${HOME}/maintainer-quality-tools/travis/travis_after_tests_success || true
+        travis_run_tests
+        travis_after_tests_success || true
 
     - name: Run tests - Linting
       env: 
