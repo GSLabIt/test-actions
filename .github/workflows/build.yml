@@ -52,10 +52,9 @@ jobs:
         PGPASSWORD: postgres
 
       run: |
-        git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
-        export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
+        git clone https://github.com/OCA/maintainer-quality-tools.git -b master maintainer-quality-tools
         npm config set unsafe-perm=true
-        travis_install_nightly
+        ./maintainer-quality-tools/travis/travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
 
