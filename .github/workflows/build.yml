@@ -25,7 +25,7 @@ jobs:
         image: postgres:10
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ''
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: github_actions
         ports:
           - 5432:5432
@@ -46,6 +46,9 @@ jobs:
     - name: Run tests - Linting
       env: 
         LINT_CHECK: 1
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        PGPASSWORD: postgres
       run: |
         git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
@@ -56,6 +59,11 @@ jobs:
     - name: Run tests - Odoo
       env: 
         LINT_CHECK: 1
+        TESTS: 1 
+        ODOO_REPO: "odoo/odoo"
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        PGPASSWORD: ''
       run: |
         git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
