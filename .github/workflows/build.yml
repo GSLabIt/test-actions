@@ -56,9 +56,8 @@ jobs:
         export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
         npm config set unsafe-perm=true
         travis_install_nightly
-        ./travis_run_tests
-        ./travis_after_tests_success || true
-      options: root
+        travis_run_tests
+        travis_after_tests_success || true
 
     - name: Run tests - Linting
       env: 
