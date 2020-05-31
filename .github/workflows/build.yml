@@ -14,6 +14,23 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      VERSION: 12.0 
+      TESTS: 0 
+      LINT_CHECK: 0 
+      MAKEPOT: 0
+
+    services:
+      postgres:
+        image: postgres:10
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ''
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.6
@@ -22,5 +39,28 @@ jobs:
         python-version: 3.6
     - name: Install dependencies
       run: |
+        sudo apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
+        curl -sL https://deb.nodesource.com/setup_10.x | bash -        
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run tests - Linting
+      env: 
+        LINT_CHECK: 1
+      run: |
+        git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
+        export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
+        travis_install_nightly
+        travis_run_tests
+        travis_after_tests_success || true
+
+    - name: Run tests - Odoo
+      env: 
+        LINT_CHECK: 1
+      run: |
+        git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
+        export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
+        travis_install_nightly
+        travis_run_tests
+        travis_after_tests_success || true
+
+        
