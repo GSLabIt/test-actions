@@ -48,14 +48,6 @@ jobs:
         python -m pip install --upgrade pip
 
     - name: Run tests - Odoo
-      run: |
-        git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
-        npm config set unsafe-perm=true
-        echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        sudo -H ${HOME}/maintainer-quality-tools/travis/travis_install_nightly ${LINT_CHECK}
-        travis_run_tests
-        travis_after_tests_success || true
-
       env: 
         LINT_CHECK: "0"
         TESTS: "1" 
@@ -64,6 +56,15 @@ jobs:
         PGHOST: 127.0.0.1
         PGUSER: postgres
         PGPASSWORD: postgres
+      run: |
+        echo $LINT_CHECK ${TESTS} ${VERSION} $ODOO_REPO.
+        git clone https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
+        npm config set unsafe-perm=true
+        echo "::add-path::${HOME}/maintainer-quality-tools/travis"
+        sudo -H ${HOME}/maintainer-quality-tools/travis/travis_install_nightly ${LINT_CHECK}
+        travis_run_tests
+        travis_after_tests_success || true
+
 
     - name: Run tests - Linting
       env: 
