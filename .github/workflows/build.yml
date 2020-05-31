@@ -40,7 +40,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
-        apt-get install -y  sudo postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
+        sudo apt-get install -y postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev
         curl -sL https://deb.nodesource.com/setup_10.x | bash -        
         python -m pip install --upgrade pip
 
