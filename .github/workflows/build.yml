@@ -59,10 +59,10 @@ jobs:
       run: |
         echo $LINT_CHECK ${TESTS} ${VERSION} $ODOO_REPO.
         npm config set unsafe-perm=true
-        git clone https://github.com/GSLabIt/maintainer-quality-tools.git -b GSLabIt-pylint_odoo_requirement ${HOME}/maintainer-quality-tools
-        ls ${HOME}/maintainer-quality-tools
+        git clone -b GSLabIt-pylint_odoo_requirement https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+        ls ${HOME}/maintainer-quality-tools/travis
         echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        sudo -H ${HOME}/maintainer-quality-tools/travis/travis_install_nightly
+        travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
         
