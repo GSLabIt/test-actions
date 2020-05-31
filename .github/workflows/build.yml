@@ -52,6 +52,7 @@ jobs:
         LINT_CHECK: "0"
         TESTS: "1" 
         VERSION: "12.0" 
+        HOME: ${env.HOME}
         ODOO_REPO: "odoo/odoo"
         PGHOST: 127.0.0.1
         PGUSER: postgres
