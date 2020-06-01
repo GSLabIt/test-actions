@@ -1,0 +1,1 @@
+l10n-italy https://github.com/OCA/l10n-italy.git 12.0
