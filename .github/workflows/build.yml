@@ -59,10 +59,9 @@ jobs:
         python -m pip install --upgrade pip
 
     - name: Run tests - Odoo
-      with:
-          LINT_CHECK: ${{ matrix.LINT_CHECK }}
-          TESTS: ${{ matrix.TESTS }}
       env: 
+        LINT_CHECK: ${{ matrix.LINT_CHECK }}
+        TESTS: ${{ matrix.TESTS }}
         PGHOST: 127.0.0.1
         PGUSER: postgres
         PGPASSWORD: postgres
