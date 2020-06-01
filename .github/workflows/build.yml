@@ -78,13 +78,13 @@ jobs:
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
         TESTS: ${{ matrix.TESTS }}
       run: |
-        export PGHOST="postgres"
-        export PGUSER="postgres"
-        export PGPASSWORD="postgres"
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         travis_install_nightly
         whoami
+        export PGHOST="postgres"
+        export PGUSER="postgres"
+        export PGPASSWORD="postgres"
         travis_run_tests
         travis_after_tests_success || true
