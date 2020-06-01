@@ -3,7 +3,11 @@
 
 name: Ooops CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ 12.0 ]
+  pull_request:
+
 jobs:
   cancel:
     name: 'Cancel Previous Runs'
