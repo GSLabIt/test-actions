@@ -76,7 +76,7 @@ jobs:
         # ls ${HOME}/maintainer-quality-tools/travis
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        cd ${HOME}/maintainer-quality-tools/travis
+        # cd ${HOME}/maintainer-quality-tools/travis
         npm install -g less@3.0.4 less-plugin-clean-css
         travis_install_nightly
         travis_run_tests
