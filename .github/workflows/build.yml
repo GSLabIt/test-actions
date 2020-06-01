@@ -3,7 +3,11 @@
 
 name: Ooops CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - "12.0"
+  pull_request
 
 jobs:
   cancel:
@@ -26,7 +30,6 @@ jobs:
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
       WEBSITE_REPO: "0"
-#     PHANTOMJS_VERSION: "latest"
 
     runs-on: ubuntu-18.04
     strategy:
@@ -84,6 +87,5 @@ jobs:
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         travis_install_nightly
-        whoami
         travis_run_tests
         travis_after_tests_success || true
