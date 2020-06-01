@@ -18,6 +18,8 @@ jobs:
       ODOO_REPO: "odoo/odoo"
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
+      PHANTOMJS_VERSION: "latest"
+      WEBSITE_REPO: "1"
 
     runs-on: ubuntu-18.04
     strategy:
@@ -69,11 +71,12 @@ jobs:
       run: |
         echo $LINT_CHECK ${TESTS} ${VERSION} $ODOO_REPO.
         npm config set unsafe-perm=true
-        git clone -b GSLabIt-pylint_odoo_requirement https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-        ls ${HOME}/maintainer-quality-tools/travis
+        # git clone -b GSLabIt-pylint_odoo_requirement https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+        git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+        # ls ${HOME}/maintainer-quality-tools/travis
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-        echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        # cd ${HOME}/maintainer-quality-tools/travis
+        # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
+        # cd ${HOME}/maintainer-quality-tools/travis
         travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
