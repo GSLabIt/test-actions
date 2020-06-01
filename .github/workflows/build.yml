@@ -8,7 +8,7 @@ on: [push]
 jobs:
   cancel:
     name: 'Cancel Previous Runs'
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     timeout-minutes: 3
     steps:
       - uses: styfle/cancel-workflow-action@0.3.1
@@ -28,7 +28,7 @@ jobs:
       WEBSITE_REPO: "0"
 #     PHANTOMJS_VERSION: "latest"
 
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
@@ -83,8 +83,5 @@ jobs:
         echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         travis_install_nightly
         whoami
-        export PGHOST="postgres"
-        export PGUSER="postgres"
-        export PGPASSWORD="postgres"
         travis_run_tests
         travis_after_tests_success || true
