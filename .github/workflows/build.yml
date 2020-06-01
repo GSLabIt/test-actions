@@ -76,7 +76,7 @@ jobs:
       env: 
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
         TESTS: ${{ matrix.TESTS }}
-        PGHOST: 127.0.0.1
+        # PGHOST: 127.0.0.1
         # PGUSER: odoo
         # PGPASSWORD: odoo
       run: |
