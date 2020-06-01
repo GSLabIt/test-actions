@@ -3,10 +3,7 @@
 
 name: Ooops CI
 
-on:
-  push:
-    branches: [ 12.0 ]
-  pull_request:
+on: [pull_request]
 
 jobs:
   cancel:
@@ -46,8 +43,8 @@ jobs:
       postgres:
         image: postgres:10
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
           POSTGRES_DB: github_actions
         ports:
           - 5432:5432
@@ -80,8 +77,8 @@ jobs:
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
         TESTS: ${{ matrix.TESTS }}
         PGHOST: 127.0.0.1
-        PGUSER: postgres
-        PGPASSWORD: postgres
+        PGUSER: odoo
+        PGPASSWORD: odoo
       run: |
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
