@@ -75,8 +75,9 @@ jobs:
         git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         # ls ${HOME}/maintainer-quality-tools/travis
         # export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-        echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        # cd ${HOME}/maintainer-quality-tools/travis
+        # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
+        cd ${HOME}/maintainer-quality-tools/travis
+        npm install -g less@3.0.4 less-plugin-clean-css
         travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
