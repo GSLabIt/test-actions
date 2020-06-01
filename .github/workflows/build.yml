@@ -76,7 +76,9 @@ jobs:
       env: 
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
         TESTS: ${{ matrix.TESTS }}
-        PGHOST: postgres
+        PGHOST: 127.0.0.1
+        PGUSER: odoo
+        PGPASSWORD: odoo
       run: |
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
