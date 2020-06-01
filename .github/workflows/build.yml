@@ -83,7 +83,7 @@ jobs:
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        echo whoami
+        whoami
         travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
