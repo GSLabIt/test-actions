@@ -21,9 +21,8 @@ jobs:
 
     runs-on: ubuntu-
     strategy:
-      matrix:
+        test: ["0", "1"]
         lint: ["0", "1"]
-        test:["0", "1"]
         exclude:
           - lint: "0"
             test: "0"
