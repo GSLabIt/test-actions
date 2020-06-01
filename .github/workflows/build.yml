@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  run-tests:
     env: 
       LINT_CHECK: "0"
       TESTS: "0" 
@@ -19,7 +19,16 @@ jobs:
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-
+    strategy:
+      matrix:
+        lint: ["0", "1"]
+        test:["0", "1"]
+        exclude:
+          - lint: "0"
+            test: "0"
+          - lint: "1"
+            test: "1"
     services:
       postgres:
         image: postgres:10
@@ -50,11 +59,10 @@ jobs:
         python -m pip install --upgrade pip
 
     - name: Run tests - Odoo
+      with:
+          LINT_CHECK: ${{ matrix.lint }}
+          TESTS: ${{ matrix.test }}
       env: 
-        LINT_CHECK: "0"
-        TESTS: "1" 
-        VERSION: "12.0" 
-        ODOO_REPO: "odoo/odoo"
         PGHOST: 127.0.0.1
         PGUSER: postgres
         PGPASSWORD: postgres
@@ -69,26 +77,3 @@ jobs:
         ./travis_install_nightly
         ./travis_run_tests
         ./travis_after_tests_success || true
-
-
-    - name: Run tests - Lint
-      env: 
-        LINT_CHECK: "1"
-        TESTS: "0" 
-        VERSION: "12.0" 
-        ODOO_REPO: "odoo/odoo"
-        PGHOST: 127.0.0.1
-        PGUSER: postgres
-        PGPASSWORD: postgres
-      run: |
-        # npm config set unsafe-perm=true
-        # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        # cd ${HOME}/maintainer-quality-tools/travis
-        # git clone -b GSLabIt-pylint_odoo_requirement https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-        ls ${HOME}/maintainer-quality-tools/travis
-        export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-        travis_install_nightly
-        travis_run_tests
-        travis_after_tests_success || true
-
-        
