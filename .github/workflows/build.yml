@@ -25,7 +25,7 @@ jobs:
         TESTS: ["0", "1"]
         exclude:
           - LINT_CHECK: "0"
-            test: "0"
+            TESTS: "0"
           - LINT_CHECK: "1"
             TESTS: "1"
     services:
