@@ -16,6 +16,7 @@ jobs:
           access_token: ${{ github.token }}
 
   run-tests:
+    name: "Ooops CI: run lint and python test"
     env: 
       LINT_CHECK: "0"
       TESTS: "0" 
@@ -23,8 +24,8 @@ jobs:
       ODOO_REPO: "odoo/odoo"
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
-#      PHANTOMJS_VERSION: "latest"
-#      WEBSITE_REPO: "1"
+      WEBSITE_REPO: "0"
+#     PHANTOMJS_VERSION: "latest"
 
     runs-on: ubuntu-18.04
     strategy:
