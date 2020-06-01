@@ -3,12 +3,7 @@
 
 name: Python application
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+on: [push, pull_request]
 jobs:
   run-tests:
     env: 
@@ -18,8 +13,8 @@ jobs:
       ODOO_REPO: "odoo/odoo"
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
-      PHANTOMJS_VERSION: "latest"
-      WEBSITE_REPO: "1"
+#      PHANTOMJS_VERSION: "latest"
+#      WEBSITE_REPO: "1"
 
     runs-on: ubuntu-18.04
     strategy:
@@ -50,9 +45,9 @@ jobs:
       with:
         node-version: '10'
 
-    - name: Set up RVM
-      run: |
-        curl -sSL https://get.rvm.io | bash
+#    - name: Set up RVM
+#      run: |
+#        curl -sSL https://get.rvm.io | bash
 
     - name: Set up Python 3.6
       uses: actions/setup-python@v2
@@ -76,12 +71,7 @@ jobs:
         echo $LINT_CHECK ${TESTS} ${VERSION} $ODOO_REPO.
         npm config set unsafe-perm=true
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-        # git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-        # ls ${HOME}/maintainer-quality-tools/travis
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-        # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
-        # cd ${HOME}/maintainer-quality-tools/travis
-        # npm install -g less@3.0.4 less-plugin-clean-css
         travis_install_nightly
         travis_run_tests
         travis_after_tests_success || true
