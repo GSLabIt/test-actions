@@ -39,15 +39,15 @@ jobs:
             TESTS: "0"
           - LINT_CHECK: "1"
             TESTS: "1"
-    # services:
-      # postgres:
-        # image: postgres:10
-        # env:
-          # POSTGRES_USER: odoo
-          # POSTGRES_PASSWORD: odoo
-          # POSTGRES_DB: github_actions
-        # ports:
-          # - 5432:5432
+      services:
+        postgres:
+          image: postgres:10
+          env:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -69,7 +69,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
-        sudo apt-get install postgresql postgresql-client expect-dev python-lxml nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
+        sudo apt-get install nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
         python -m pip install --upgrade pip
 
     - name: Run tests LINT=${{ matrix.LINT_CHECK }}, TESTS=${{ matrix.TESTS }}
@@ -80,10 +80,15 @@ jobs:
         # PGUSER: odoo
         # PGPASSWORD: odoo
       run: |
+        export PGHOST="postgres"
+        export PGUSER="postgres"
+        export PGPASSWORD=""
+
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
         # echo "::add-path::${HOME}/maintainer-quality-tools/travis"
         whoami
         travis_install_nightly
+        whoami
         travis_run_tests
         travis_after_tests_success || true
