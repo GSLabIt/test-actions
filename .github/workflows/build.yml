@@ -19,7 +19,7 @@ jobs:
       TRAVIS_BUILD_DIR: ${{ github.workspace }}
       TRAVIS_PYTHON_VERSION: "3.6"
 
-    runs-on: ubuntu-
+    runs-on: ubuntu-18.04
     strategy:
         LINT_CHECK: ["0", "1"]
         TESTS: ["0", "1"]
