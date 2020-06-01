@@ -44,9 +44,8 @@ jobs:
       postgres:
         image: postgres:10
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github_actions
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -77,6 +76,7 @@ jobs:
       env: 
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
         TESTS: ${{ matrix.TESTS }}
+        PGHOST: postgres
       run: |
         git clone -b npm-less-install https://github.com/GSLabIt/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
         export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
