@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - "12.0"
-  pull_request
+  pull_request:
 
 jobs:
   cancel:
