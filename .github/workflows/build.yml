@@ -65,7 +65,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        curl -sL https://deb.nodesource.com/setup_10.x | bash -
+        sudo curl -sL https://deb.nodesource.com/setup_10.x | bash -
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
         sudo apt-get install nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
         python -m pip install --upgrade pip
