@@ -16,7 +16,7 @@ jobs:
           access_token: ${{ github.token }}
 
   run-tests:
-    name: "Ooops CI: run lint and python test"
+    name: "Run tests"
     env: 
       LINT_CHECK: "0"
       TESTS: "0" 
@@ -57,10 +57,8 @@ jobs:
         node-version: '10'
 
     - name: Set up RVM
-      if: ${{env.WEBSITE_REPO}} == "1"
       run: |
-        echo "eee" ${{env.WEBSITE_REPO}}
-        curl -sSL https://get.rvm.io | bash
+        if [ ${WEBSITE_REPO} == "1" ]; then curl -sSL https://get.rvm.io | bash; fi
 
     - name: Set up Python 3.6
       uses: actions/setup-python@v2
