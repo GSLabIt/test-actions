@@ -11,11 +11,11 @@ def main():
         return 1
     headers = {'Authorization': 'token ' + token}
     url = f'https://api.github.com/repos/{repo}/actions/workflows/build.yml'
-    response = requests.get(url, headers=headers)
-    print(url, response.json())
-    if response != requests.codes.ok:
+    r = requests.get(url, headers=headers)
+    if r.status_code != requests.codes.ok:
         return 1
-    workflow_id = response.json().get('workflows')[0].get('id', False)
+    print(url, r.json())
+    workflow_id = r.json().get('workflows')[0].get('id', False)
     print('workflow_id', workflow_id)
     print(f"::set-output name=workflow_id::{workflow_id}")
     return 0
