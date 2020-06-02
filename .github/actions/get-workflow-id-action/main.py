@@ -4,9 +4,9 @@ import requests  # noqa We are just importing this to prove the dependency insta
 
 def main():
     print('sticaz')
-    token = os.environ.get("GITHUB_TOKEN", False)
-    repo = os.environ.get("GITHUB_REPOSITORY", False)
-    print('sticaz 2', token, repo, os.environ, os.environ['GITHUB_TOKEN']),
+    token = os.environ.get("INPUT_GITHUB_TOKEN", False)
+    repo = os.environ.get("INPUT_GITHUB_REPOSITORY", False)
+    print('sticaz 2', token, repo, os.environ),
     if not token and repo:
         return 1
     headers = {'Authorization': 'token ' + token}
