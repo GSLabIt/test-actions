@@ -21,7 +21,7 @@ jobs:
         id: get_workflow_id
         uses: ./.github/actions/get-workflow-id-action
         with:
-          access_token: ${{ github.token }}
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
