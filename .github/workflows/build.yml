@@ -15,9 +15,19 @@ jobs:
     runs-on: ubuntu-18.04
     timeout-minutes: 3
     steps:
+      - name: Get Workflow ID
+        run: |
+          ${HOME}/script/get_workflow_id.py
+        env:
+      env:
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_WORKFLOW: ${{ secrets.GITHUB_WORKFLOW }}
+
+
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
-          workflow_id: 1430360
+          workflow_id: ${WORKFLOW_ID}
           access_token: ${{ github.token }}
 
   run-tests:
