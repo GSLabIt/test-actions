@@ -6,8 +6,6 @@ inputs:
     description: "Repository"
   GITHUB_TOKEN:
     description: "Github token"
-  GITHUB_WORKFLOW:
-    description: "Workflow file name"
 outputs:
   WORKFLOW_ID:
     description: "Output WORKFLOW_ID"
