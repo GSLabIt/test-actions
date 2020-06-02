@@ -18,12 +18,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Get Workflow ID
+        id: get_workflow_id
         uses: ./.github/actions/get-workflow-id-action
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          access_token: ${{ github.token }}
 
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
-          workflow_id: ${{WORKFLOW_ID}}
+          workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
           access_token: ${{ github.token }}

@@ -3,7 +3,7 @@ import requests  # noqa We are just importing this to prove the dependency insta
 
 
 def main():
-    print('sticaz')
+    print('sticaz , access_token')
     token = os.environ.get("ACTIONS_RUNTIME_TOKEN")
     repo = os.environ.get("GITHUB_REPOSITORY")
     print('sticaz 2', token, repo, os.environ),
