@@ -45,26 +45,31 @@ jobs:
     steps:
     - name: Pull Request Workflow Cancel
       uses: Khan/pull-request-workflow-cancel@1.0.0
-        with:
+      with:
           workflows: "build.yml"
-        env:
+      env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2-beta
       with:
         node-version: '10'
+
     - name: Set up RVM
       run: |
         if [ ${WEBSITE_REPO} == "1" ]; then curl -sSL https://get.rvm.io | bash; fi
+
     - name: Set up Python 3.6
       uses: actions/setup-python@v2
       with:
         python-version: 3.6
+
     - name: Install dependencies
       run: |
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
         sudo apt-get install nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
         python -m pip install --upgrade pip
+
     - name: Run tests LINT=${{ matrix.LINT_CHECK }}, TESTS=${{ matrix.TESTS }}
       env: 
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
