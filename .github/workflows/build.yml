@@ -17,7 +17,8 @@ jobs:
     steps:
       - name: Get Workflow ID
         run: |
-          ${HOME}/script/get_workflow_id.py
+          ls
+          ./scripts/get_workflow_id.py
         env:
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
