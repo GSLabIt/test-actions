@@ -11,6 +11,7 @@ on:
 
 jobs:
   cancel-pr-run:
+    name: 'Cancel Previous Pull Requests Runs'
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request }}
     steps:
@@ -18,9 +19,10 @@ jobs:
         with:
           workflows: "build.yml"
         env:
+          GITHUB_TOKEN: ${{ github.token }}
 
   cancel:
-    name: 'Cancel Previous Runs'
+    name: 'Cancel Previous Push Runs'
     runs-on: ubuntu-18.04
     timeout-minutes: 3
     if: ${{ github.event.push }}
