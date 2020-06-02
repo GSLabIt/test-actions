@@ -1,16 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import os
-import subprocess
-import sys
-import shlex
-
-import requests
+import requests  # noqa We are just importing this to prove the dependency installed correctly
 
 
-def main(argv=None):
-    if argv is None:
-        argv = sys.argv
+def main():
     workflow_file_name = os.environ.get("GITHUB_WORKFLOW", False)
     token = os.environ.get("GITHUB_TOKEN", False)
     repo = os.environ.get("GITHUB_REPOSITORY", False)
@@ -23,22 +15,8 @@ def main(argv=None):
             return 1
         workflow_id = response.json().get('workflows')[0].get('id', False)
         print(f"::set-output name=WORKFLOW_ID::{workflow_id}")
-        """
-        strcmd_exe = 'echo "::set-output name=WORKFLOW_ID::{0}"'.format(
-            workflow_id)
-        cmd = shlex.split(strcmd_exe)
-        try:
-            proc = subprocess.Popen(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            stdoutdata, stderrdata = proc.communicate()
-            if proc.wait() != 0:
-                return 1
-        except Exception as e:
-            print(e)
-            return 1
-        """
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(main())
