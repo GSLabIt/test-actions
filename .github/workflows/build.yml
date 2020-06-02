@@ -19,9 +19,9 @@ jobs:
         run: |
           ${HOME}/script/get_workflow_id.py
         env:
-        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_WORKFLOW: ${{ secrets.GITHUB_WORKFLOW }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_WORKFLOW: ${{ secrets.GITHUB_WORKFLOW }}
 
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
