@@ -9,16 +9,23 @@ on:
       - "12.0"
 
 jobs:
-  cancel-run: 
-    name: 'Cancel Previous Runs on Push'
+  cancel:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-18.04
     timeout-minutes: 3
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - uses: n1hility/cancel-previous-runs@v2
-        with: 
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Workflow ID
+        id: get_workflow_id
+        uses: ./.github/actions/get-workflow-id-action
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: styfle/cancel-workflow-action@0.3.1
+        with:
+          workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
+          access_token: ${{ github.token }}
 
   run-tests:
     name: "Run tests"
