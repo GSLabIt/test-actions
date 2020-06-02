@@ -27,10 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+
       - uses: n1hility/cancel-previous-runs@v2
-      with: 
-        token: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   run-tests:
     name: "Run tests"
