@@ -25,7 +25,7 @@ jobs:
 
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
-          workflow_id: build.yml
+          workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
           access_token: ${{ github.token }}
 
   run-tests:
