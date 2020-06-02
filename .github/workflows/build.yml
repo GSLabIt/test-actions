@@ -21,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-  test: 
+  cancel-push-run: 
     name: 'Cancel Previous Runs on Push'
     timeout-minutes: 3
     runs-on: ubuntu-latest
