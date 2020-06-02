@@ -10,23 +10,6 @@ on:
   pull_request:
 
 jobs:
-  cancel:
-    name: 'Cancel Previous Runs'
-    runs-on: ubuntu-18.04
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Get Workflow ID
-        id: get_workflow_id
-        uses: ./.github/actions/get-workflow-id-action
-        with:
-          access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: styfle/cancel-workflow-action@0.3.1
-        with:
-          workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
-          access_token: ${{ github.token }}
 
   run-tests:
     name: "Run tests"
@@ -50,7 +33,6 @@ jobs:
             TESTS: "0"
           - LINT_CHECK: "1"
             TESTS: "1"
-
     services:
       postgres:
         image: postgres:10
@@ -60,29 +42,29 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
+    - name: Pull Request Workflow Cancel
+      uses: Khan/pull-request-workflow-cancel@1.0.0
+        with:
+          workflows: "build.yml"
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
     - uses: actions/checkout@v2
-
     - uses: actions/setup-node@v2-beta
       with:
         node-version: '10'
-
     - name: Set up RVM
       run: |
         if [ ${WEBSITE_REPO} == "1" ]; then curl -sSL https://get.rvm.io | bash; fi
-
     - name: Set up Python 3.6
       uses: actions/setup-python@v2
       with:
         python-version: 3.6
-
     - name: Install dependencies
       run: |
         sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
         sudo apt-get install nodejs python-dev python-pip build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libxml2-dev libxslt-dev
         python -m pip install --upgrade pip
-
     - name: Run tests LINT=${{ matrix.LINT_CHECK }}, TESTS=${{ matrix.TESTS }}
       env: 
         LINT_CHECK: ${{ matrix.LINT_CHECK }}
