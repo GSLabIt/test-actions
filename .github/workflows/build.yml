@@ -20,8 +20,8 @@ jobs:
       - name: Get Workflow ID
         uses: ./.github/actions/get-workflow-id-action
         with:
-          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
 
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
