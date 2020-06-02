@@ -9,6 +9,8 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-l10n_it_fatturapa_in',
+        'odoo12-addon-l10n_it_fatturapa_out',
+        'odoo12-addon-l10n_it_fatturapa_out_ddt',
     ],
     classifiers=[
         'Programming Language :: Python',
