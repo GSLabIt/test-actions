@@ -2,12 +2,10 @@ name: "Python Container Action Template"
 description: "Get started with Python Container actions"
 author: "Giovanni @ GSLab.it"
 inputs:
-  GITHUB_REPOSITORY:
-    description: "Repository"
-  GITHUB_TOKEN:
+  access_token:
     description: "Github token"
 outputs:
-  WORKFLOW_ID:
+  workflow_id:
     description: "Output WORKFLOW_ID"
 runs:
   using: "docker"
