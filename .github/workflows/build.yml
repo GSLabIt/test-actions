@@ -13,7 +13,7 @@ jobs:
   cancel-pr-run:
     name: 'Cancel Previous Pull Requests Runs'
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request }}
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: khan/pull-request-workflow-cancel@1.0.0
         with:
@@ -21,24 +21,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-  cancel:
-    name: 'Cancel Previous Push Runs'
-    runs-on: ubuntu-18.04
+  test: 
+    name: 'Cancel Previous Runs on Push'
     timeout-minutes: 3
-    if: ${{ github.event.push }}
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Get Workflow ID
-        id: get_workflow_id
-        uses: ./.github/actions/get-workflow-id-action
-        with:
-          access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: styfle/cancel-workflow-action@0.3.1
-        with:
-          workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
-          access_token: ${{ github.token }}
+      - uses: actions/checkout@v1
+      - uses: n1hility/cancel-previous-runs@v2
+      with: 
+        token: ${{ secrets.GITHUB_TOKEN }}
 
   run-tests:
     name: "Run tests"
