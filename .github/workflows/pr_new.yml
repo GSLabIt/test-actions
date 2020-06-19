@@ -1,0 +1,57 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Ooops CI
+
+on: [pull_request]
+
+jobs:
+  cancel-run:
+    name: 'Cancel Previous Pull Requests Runs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: khan/pull-request-workflow-cancel@1.0.0
+        with:
+          workflows: "pull_request.yml"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  run-tests:
+    name: "Run tests"
+    env: 
+      LINT_CHECK: "0"
+      TESTS: "0" 
+      VERSION: "12.0" 
+      ODOO_REPO: "odoo/odoo"
+      TRAVIS_BUILD_DIR: ${{ github.workspace }}
+      TRAVIS_PYTHON_VERSION: "3.6"
+      WEBSITE_REPO: "0"
+
+    runs-on: ubuntu-18.04
+    container: studio73/gha-oca-mqt:12.0
+    strategy:
+      fail-fast: false
+      matrix:
+        LINT_CHECK: ["1", "0"]
+        TESTS: ["0", "1"]
+        exclude:
+          - LINT_CHECK: "0"
+            TESTS: "0"
+          - LINT_CHECK: "1"
+            TESTS: "1"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests LINT=${{ matrix.LINT_CHECK }}, TESTS=${{ matrix.TESTS }}
+      env: 
+        LINT_CHECK: ${{ matrix.LINT_CHECK }}
+        TESTS: ${{ matrix.TESTS }}
+        PGHOST: postgres
+        PGUSER: odoo
+        PGPASSWORD: odoo
+        PGPORT: 5432
+      run: |
+        . setup_oca_mqt
+        travis_run_tests
+        travis_after_tests_success || true
