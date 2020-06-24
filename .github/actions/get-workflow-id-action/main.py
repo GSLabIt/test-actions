@@ -15,6 +15,7 @@ def main():
     if r.status_code != requests.codes.ok:
         return 1
     workflow_id = r.json().get('id', False)
+    print('workflow_id', workflow_id)
     sys.stdout.write(f"::set-output name=workflow_id::{workflow_id}")
     return 0
 
