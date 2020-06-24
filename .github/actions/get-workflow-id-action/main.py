@@ -1,6 +1,9 @@
 import os
 import requests  # noqa We are just importing this to prove the dependency installed correctly
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 def main():
     token = os.environ.get("INPUT_ACCESS_TOKEN")
@@ -14,7 +17,7 @@ def main():
     if r.status_code != requests.codes.ok:
         return 1
     workflow_id = r.json().get('id', False)
-    print(f"::set-output name=workflow_id::{workflow_id}")
+    _logger.info(f"::set-output name=workflow_id::{workflow_id}")
     return 0
 
 
