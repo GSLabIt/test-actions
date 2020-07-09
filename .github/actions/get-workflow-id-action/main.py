@@ -1,5 +1,6 @@
 import os
 import requests  # noqa We are just importing this to prove the dependency installed correctly
+import sys
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -18,6 +19,7 @@ def main():
         return 1
     workflow_id = r.json().get('id', False)
     _logger.info(f"::set-output name=workflow_id::{workflow_id}")
+
     return 0
 
 
