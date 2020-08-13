@@ -32,12 +32,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        LINT_CHECK: ["LINT", ""]
-        TESTS: ["TEST", ""]
+        LINT_CHECK: ["LINT", "0"]
+        TESTS: ["TEST", "0"]
         exclude:
           - LINT_CHECK: ""
             TESTS: ""
-          - LINT_CHECK: "LINTING"
+          - LINT_CHECK: "LINT"
             TESTS: "TEST"
 
     services:
@@ -61,8 +61,8 @@ jobs:
 
       - name: Run ${{ matrix.LINT_CHECK }} ${{ matrix.TESTS }}
         env:
-          LINT_CHECK: ${{ matrix.LINT_CHECK == 'LINT' }}
-          TESTS: ${{ if(matrix.TESTS == 'TEST'): "1" }})
+          LINT_CHECK: ${{ matrix.LINT_CHECK }}
+          TESTS: ${{ matrix.TESTS }}
           PGHOST: postgres
           PGUSER: odoo
           PGPASSWORD: odoo
