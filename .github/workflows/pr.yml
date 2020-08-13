@@ -32,13 +32,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        LINT_CHECK: ["LINT", "0"]
-        TESTS: ["TEST", "0"]
+        LINT_CHECK: ["1", "0"]
+        TESTS: ["1", "0"]
         exclude:
           - LINT_CHECK: "0"
             TESTS: "0"
-          - LINT_CHECK: "LINT"
-            TESTS: "TEST"
+          - LINT_CHECK: "1"
+            TESTS: "1"
 
     services:
       postgres:
@@ -59,7 +59,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Run ${{ matrix.LINT_CHECK }} ${{ matrix.TESTS }}
+      - name: Run LINT-TESTS=${{ matrix.LINT_CHECK }}, PYTESTS=${{ matrix.TESTS }}
         env:
           LINT_CHECK: ${{ matrix.LINT_CHECK }}
           TESTS: ${{ matrix.TESTS }}
