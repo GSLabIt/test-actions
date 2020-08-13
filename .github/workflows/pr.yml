@@ -37,7 +37,7 @@ jobs:
         exclude:
           - LINT_CHECK: ""
             TESTS: ""
-          - LINT_CHECK: "LINT"
+          - LINT_CHECK: "LINTING"
             TESTS: "TEST"
 
     services:
@@ -61,8 +61,8 @@ jobs:
 
       - name: Run ${{ matrix.LINT_CHECK }} ${{ matrix.TESTS }}
         env:
-          LINT_CHECK: ${{ matrix.LINT_CHECK == 'LINT' }}
-          TESTS: ${{ matrix.TESTS == 'TEST' }}
+          LINT_CHECK: ${{ matrix.LINT_CHECK == 'LINTING' }}
+          TESTS: [[ if ${{ matrix.TESTS == 'TEST' }} : "1" else "0"]]
           PGHOST: postgres
           PGUSER: odoo
           PGPASSWORD: odoo
