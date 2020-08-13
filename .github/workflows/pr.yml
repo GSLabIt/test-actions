@@ -62,7 +62,7 @@ jobs:
       - name: Run ${{ matrix.LINT_CHECK }} ${{ matrix.TESTS }}
         env:
           LINT_CHECK: ${{ matrix.LINT_CHECK == 'LINT' }}
-          TESTS: [[ if ${{ matrix.TESTS == 'TEST' }} : "1" else "0"]]
+          TESTS: if ${{ matrix.TESTS == 'TEST' }} : "1" else "0"
           PGHOST: postgres
           PGUSER: odoo
           PGPASSWORD: odoo
