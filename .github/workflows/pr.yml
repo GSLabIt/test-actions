@@ -35,8 +35,8 @@ jobs:
         LINT_CHECK: ["LINT", "0"]
         TESTS: ["TEST", "0"]
         exclude:
-          - LINT_CHECK: ""
-            TESTS: ""
+          - LINT_CHECK: "0"
+            TESTS: "0"
           - LINT_CHECK: "LINT"
             TESTS: "TEST"
 
