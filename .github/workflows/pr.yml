@@ -59,7 +59,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Run ${{ matrix.LINT_CHECK == 1 then 'LINT' }} TESTS=${{ matrix.TESTS == 1 then 'TESTS' }}
+      - name: Run ${{ if matrix.LINT_CHECK == 1 then 'LINT' }} TESTS=${{ if matrix.TESTS == 1 then 'TESTS' }}
         env:
           LINT_CHECK: ${{ matrix.LINT_CHECK }}
           TESTS: ${{ matrix.TESTS }}
