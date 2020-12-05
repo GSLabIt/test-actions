@@ -74,8 +74,8 @@ jobs:
       TRAVIS_BRANCH: ${{ github.head_ref || github.ref}}
       TRAVIS_REPO_SLUG: ${{ github.repository }}
       TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number || 'false'}}
-      GITHUB_USER: gslabit
-      GITHUB_EMAIL: giovanni@gslab.it
+      GITHUB_USER: 'Ooops CI'
+      GITHUB_EMAIL: noreply@github.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     runs-on: ubuntu-18.04
