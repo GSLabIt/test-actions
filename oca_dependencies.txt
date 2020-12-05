@@ -1,1 +1,1 @@
-l10n-italy https://github.com/OCA/l10n-italy.git 12.0
+partner-contact https://github.com/OCA/partner-contact 12.0

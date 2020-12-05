@@ -25,7 +25,7 @@ jobs:
       - id: skip_check
         uses: fkirc/skip-duplicate-actions@master
         with:
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           paths_ignore: '["**/README.rst", "**/README.md"]'
 
   cancel-run-push:
@@ -45,7 +45,7 @@ jobs:
       - uses: styfle/cancel-workflow-action@0.3.1
         with:
           workflow_id: ${{ steps.get_workflow_id.outputs.workflow_id }}
-          access_token: ${{ github.token }}
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
   cancel-run-pr:
     name: "Cancel Previous Pull Requests Runs"
@@ -56,23 +56,12 @@ jobs:
         with:
           workflows: "ci.yml"
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-  runbot:
-    name: "Build Runbot"
-    if: contains(github.ref, 'ocabot-merge') != true
-    runs-on: ubuntu-latest
-    steps:
-      - uses: distributhor/workflow-webhook@v1.0.5
-        env:
-          webhook_type: 'form-urlencoded'
-          webhook_url: '${{ secrets.WEBHOOK_URL }}/1'
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   run-tests:
     name: "Run tests"
     needs: check_workflow
-    if: ${{ needs.check_workflow.outputs.should_skip != 'true' }}
+    # if: ${{ needs.check_workflow.outputs.should_skip != 'true' }}
     env:
       LINT_CHECK: "0"
       TESTS: "0"
@@ -87,7 +76,7 @@ jobs:
       TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number || 'false'}}
       GITHUB_USER: gslabit
       GITHUB_EMAIL: giovanni@gslab.it
-      GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     runs-on: ubuntu-18.04
     container: gslabit/gha-oca-mqt:12.0
@@ -123,6 +112,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
 
       - uses: webfactory/ssh-agent@v0.4.1
         with:
