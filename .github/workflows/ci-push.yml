@@ -62,7 +62,7 @@ jobs:
       TRAVIS_PULL_REQUEST: ${{ github.event.pull_request.number || 'false'}}
       GITHUB_USER: 'Ooops CI'
       GITHUB_EMAIL: noreply@github.com
-      GITHUB_TOKEN: ${{ secrets.GITHUB_PAT_GSLABIT }}
+      GITHUB_TOKEN: ${{ secrets.GSLABIT_PAT }}
 
     runs-on: ubuntu-18.04
     container: gslabit/gha-oca-mqt:12.0
