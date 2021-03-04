@@ -41,11 +41,11 @@ jobs:
     uses: andstor/file-existence-action@v1
     with:
       files: "**/i18n/it.po"
-      allow_failure: 'true'
+      allow_failure: true
 
   run-tests:
     name: "Run tests"
-    needs: [check-it-po]
+    needs: [check-workflow, cancel-run-pr, check-it-po]
     if:
       ${{ github.event.pull_request && needs.check-workflow.outputs.should_skip !=
       'true' }}
