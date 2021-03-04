@@ -48,13 +48,14 @@ jobs:
         id: check_files
         run: |
           echo "=============== list modified files ==============="
-          git diff --name-only HEAD^ -- HEAD
+          git diff --name-only HEAD HEAD~2
           
           echo "========== check paths of modified files =========="
-          git diff --name-only HEAD^ -- HEAD > files.txt
+          git diff --name-only HEAD HEAD~2 > files.txt
           while IFS= read -r file
           do
             echo $file
+            echo $(basename $some_path)
             if [[ $file != db/* ]]; then
               echo "This modified file is not under the 'db' folder."
               echo "::set-output name=run_job::false"
