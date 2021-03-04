@@ -35,10 +35,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check-it-po:
-  uses: andstor/file-existence-action@v1
-  with:
-    files: "**/i18n/it.po"
-    allow_failure: 'true'
+    uses: andstor/file-existence-action@v1
+    with:
+      files: "**/i18n/it.po"
+      allow_failure: 'true'
 
   run-tests:
     name: "Run tests"
