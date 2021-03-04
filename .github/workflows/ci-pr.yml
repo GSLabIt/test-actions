@@ -41,6 +41,9 @@ jobs:
     needs: [check-workflow, cancel-run-pr]
     runs-on: ubuntu-18.04
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - uses: andstor/file-existence-action@v1
         with:
           files: "/base_location_italian_cities_import/i18n/it.po"
