@@ -37,6 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check-it-po:
+    name: "Check it.po exists"
     needs: [check-workflow, cancel-run-pr]
     uses: andstor/file-existence-action@v1
     with:
