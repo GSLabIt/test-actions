@@ -39,10 +39,11 @@ jobs:
   check-it-po:
     name: "Check if it.po exists"
     needs: [check-workflow, cancel-run-pr]
-    uses: andstor/file-existence-action@v1
-    with:
-      files: "**/i18n/it.po"
-      allow_failure: true
+    steps:
+      - uses: andstor/file-existence-action@v1
+        with:
+          files: "**/i18n/it.po"
+          allow_failure: true
 
   run-tests:
     name: "Run tests"
