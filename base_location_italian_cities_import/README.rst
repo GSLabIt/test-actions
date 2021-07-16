@@ -39,6 +39,7 @@ If you want/need to modify the default URL
 (https://raw.githubusercontent.com/matteocontrini/comuni-json/master/comuni.json), you can set the *istat_codes.url*
 system parameter.
 
+
 Usage
 =====
 
