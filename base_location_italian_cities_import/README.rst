@@ -76,6 +76,6 @@ Maintainers
 
 This module is maintained by the Ooops.
 
-.. image:: https://www.ooops403.com/logo.png
-   :alt: Ooops403
-   :target: https://www.ooops403.com
+.. image:: https://www.ooops404.com/logo.png
+   :alt: ooops404
+   :target: https://www.ooops404.com
