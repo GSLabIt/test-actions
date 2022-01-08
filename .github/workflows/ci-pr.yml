@@ -36,14 +36,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  check-it-po:
-    name: "Check it.po exists"
-    needs: [check-workflow, cancel-run-pr]
-    uses: andstor/file-existence-action@v1
-    with:
-      files: "**/i18n/it.po"
-      allow_failure: true
-
   run-tests:
     name: "Run tests"
     needs: [check-workflow, cancel-run-pr, check-it-po]
