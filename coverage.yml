@@ -19,7 +19,4 @@ coverage:
         # advanced
         if_ci_failed: error #success, failure, error, ignore
         only_pulls: false
-        flags: 
-          - "unit"
-        paths: 
-          - "src"
+        informational: false
