@@ -27,7 +27,9 @@ jobs:
   cancel-run-pr:
     name: "Cancel Previous Runs"
     needs: check-workflow
-    if: ${{ github.event.pull_request && needs.check-workflow.outputs.should_skip != 'true'}}
+    if:
+      ${{ github.event.pull_request && needs.check-workflow.outputs.should_skip !=
+      'true'}}
     runs-on: ubuntu-18.04
     steps:
       - uses: khan/pull-request-workflow-cancel@1.0.0
@@ -36,23 +38,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  check-it-po:
-    name: "Check it.po exists"
-    needs: [check-workflow, cancel-run-pr]
-    uses: andstor/file-existence-action@v1
-    with:
-      files: "**/i18n/it.po"
-      allow_failure: true
-
   run-tests:
-    name: "Run tests"
-    needs: [check-workflow, cancel-run-pr, check-it-po]
+    name: "Run python tests"
+    needs: [check-workflow, cancel-run-pr]
     if:
       ${{ github.event.pull_request && needs.check-workflow.outputs.should_skip !=
       'true' }}
     env:
       LINT_CHECK: "0"
-      TESTS: "0"
+      TESTS: "1"
       MAKEPOT: "0"
       VERSION: "12.0"
       ODOO_REPO: "odoo/odoo"
@@ -65,19 +59,10 @@ jobs:
       GITHUB_USER: "Ooops CI"
       GITHUB_EMAIL: noreply@github.com
       GITHUB_TOKEN: ${{ secrets.GSLABIT_PAT }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     runs-on: ubuntu-18.04
     container: gslabit/gha-oca-mqt:12.0
-    strategy:
-      matrix:
-        LINT_CHECK: ["1", "0"]
-        TESTS: ["0", "1"]
-        exclude:
-          - LINT_CHECK: "0"
-            TESTS: "0"
-          - LINT_CHECK: "1"
-            TESTS: "1"
-
     services:
       postgres:
         image: postgres:10
@@ -99,13 +84,8 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name:
-          Run tests LINT=${{ matrix.LINT_CHECK }}, TESTS=${{ matrix.TESTS }},
-          MAKEPOT=${{ matrix.MAKEPOT || 0 }}
+      - name: "Run pytests"
         env:
-          LINT_CHECK: ${{ matrix.LINT_CHECK }}
-          TESTS: ${{ matrix.TESTS }}
-          MAKEPOT: ${{ matrix.MAKEPOT || 0 }}
           PGHOST: postgres
           PGUSER: odoo
           PGPASSWORD: odoo
