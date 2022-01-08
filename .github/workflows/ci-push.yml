@@ -117,7 +117,7 @@ jobs:
           PGPORT: 5432
         run: |
           . setup_oca_mqt
-    - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           files: ./coverage1.xml,./coverage2.xml # optional
