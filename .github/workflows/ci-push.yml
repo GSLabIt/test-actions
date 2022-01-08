@@ -68,6 +68,7 @@ jobs:
       GITHUB_USER: "Ooops CI"
       GITHUB_EMAIL: noreply@github.com
       GITHUB_TOKEN: ${{ secrets.GSLABIT_PAT }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     runs-on: ubuntu-18.04
     container: gslabit/gha-oca-mqt:12.0
