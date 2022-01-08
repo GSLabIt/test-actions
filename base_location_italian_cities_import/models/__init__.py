@@ -1,1 +1,1 @@
-from . import res_city  # noqa
+from . import res_city
