@@ -19,6 +19,10 @@ jobs:
 
       - name: Recursive File Query by Extension
         uses: fluffy-bunny/action-filequery@v0.2dev
+        with:
+          fileExtensions: [".po"],
+          folder: '.',
+          maxDepth: 3
 
   check-workflow:
     name: "Check Workflow Run"
