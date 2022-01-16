@@ -22,7 +22,7 @@ jobs:
         with:
           fileExtensions: [".po"],
           folder: 'base_location_italian_cities_import',
-          maxDepth: 3,
+          maxDept: 3,
 
   check-workflow:
     name: "Check Workflow Run"
