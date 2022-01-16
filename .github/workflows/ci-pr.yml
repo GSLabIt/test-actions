@@ -9,6 +9,23 @@ on:
       - "*"
 
 jobs:
+  file_existence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "it.po"
+          allow_failure: true
+
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'true'
+        # Only runs if all of the files exists
+        run: echo All files exists!
   check-workflow:
     name: "Check Workflow Run"
     # continue-on-error: true # Uncomment once integration is finished
