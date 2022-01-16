@@ -17,17 +17,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v1
+      - name: Recursive File Query by Extension
+        uses: fluffy-bunny/action-filequery@v0.2dev
         with:
-          files: "./.*/i18n/it.po"
-          allow_failure: true
+          fileExtensions: ['.po'],
+          recursive: true,
+          folder: './',
+          maxDepth: 3
 
-      - name: File exists
-        if: steps.check_files.outputs.files_exists == 'true'
-        # Only runs if all of the files exists
-        run: echo All files exists!
   check-workflow:
     name: "Check Workflow Run"
     if: ${{ github.event_name == 'push' }}
