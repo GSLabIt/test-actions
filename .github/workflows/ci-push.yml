@@ -11,19 +11,6 @@ on:
       - "*ocabot-merge*"
 
 jobs:
-  file_existence:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-
-      - name: Recursive File Query by Extension
-        uses: fluffy-bunny/action-filequery@v0.2dev
-        with:
-          fileExtensions: '[".po"]',
-          folder: 'base_location_italian_cities_import',
-          maxDept: 3,
-
   check-workflow:
     name: "Check Workflow Run"
     if: ${{ github.event_name == 'push' }}
