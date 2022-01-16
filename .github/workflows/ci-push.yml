@@ -20,7 +20,7 @@ jobs:
       - name: Recursive File Query by Extension
         uses: fluffy-bunny/action-filequery@v0.2dev
         with:
-          fileExtensions: [".po"],
+          fileExtensions: '[".po"]',
           folder: 'base_location_italian_cities_import',
           maxDept: 3,
 
