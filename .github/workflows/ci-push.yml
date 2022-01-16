@@ -21,8 +21,8 @@ jobs:
         uses: fluffy-bunny/action-filequery@v0.2dev
         with:
           fileExtensions: [".po"],
-          folder: '.',
-          maxDepth: 3
+          folder: 'base_location_italian_cities_import',
+          maxDepth: 3,
 
   check-workflow:
     name: "Check Workflow Run"
